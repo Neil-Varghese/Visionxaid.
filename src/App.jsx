@@ -6,7 +6,7 @@ import Footer from "@/components/layouts/Footer";
 import Landing from "@/pages/Landing";
 import How from "@/pages/How";
 import Teampage from "@/pages/Teampage";
-import Music from "@/components/sections/music.jsx";
+import Music from "@/components/sections/Music.jsx";
 
 import Prediction from "@/pages/Prediction";
 
