@@ -1,7 +1,7 @@
 import ai from "@/assets/ai.jpg";
 import neuralnetwork from "@/assets/neuralnetwork.jpg";
 import image4 from "@/assets/image4.jpg";
-import Card from "@/components/sections/card.jsx";
+import Card from "@/components/sections/Card.jsx";
 
 
 export default function Features() {
