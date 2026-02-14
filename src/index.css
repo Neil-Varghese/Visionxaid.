@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+/* Global dark baseline */
+html,
+body,
+#root {
+  background-color: #0B0F14;
+  color: white;
+}
