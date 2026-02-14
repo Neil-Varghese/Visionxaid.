@@ -7,6 +7,10 @@ from fastapi.middleware.cors import CORSMiddleware
 import base64
 import numpy as np
 import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 import tensorflow as tf
 from tensorflow.keras.applications.efficientnet import preprocess_input
@@ -109,9 +113,12 @@ app = FastAPI(title="VisionXaid Backend", lifespan=lifespan)
 # CORS
 # ----------------------------
 
+# Get allowed origins from environment variable or use default
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173").split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
