@@ -11,9 +11,16 @@ export const predictImage = async (imageFile) => {
   formData.append("file", imageFile);
 
   try {
+    console.log("Fetching from:", `${API_BASE_URL}/predict`);
     const response = await fetch(`${API_BASE_URL}/predict`, {
       method: "POST",
       body: formData,
+    });
+
+    console.log("Response status:", response.status);
+    console.log("Response headers:", {
+      contentType: response.headers.get("content-type"),
+      contentEncoding: response.headers.get("content-encoding"),
     });
 
     if (!response.ok) {
@@ -21,7 +28,9 @@ export const predictImage = async (imageFile) => {
       throw new Error(error.message || "Prediction failed");
     }
 
-    return await response.json();
+    const data = await response.json();
+    console.log("Parsed response:", data);
+    return data;
   } catch (error) {
     console.error("Error in predictImage:", error);
     throw error;
