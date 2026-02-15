@@ -5,7 +5,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="w-full flex justify-center pt-4">
+    <div className="fixed inset-x-0 top-0 z-50 flex justify-center pt-2 md:pt-4 pointer-events-none">
       <nav
         className="
           fixed top-6 left-1/2 -translate-x-1/2 z-50
@@ -14,6 +14,7 @@ export default function Navbar() {
           bg-black/40 backdrop-blur-md
           px-3 py-1.5 rounded-full
           text-white text-sm
+          pointer-events-auto
         "
       >
         {/* Logo */}

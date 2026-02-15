@@ -21,16 +21,17 @@ export default function Hero() {
       `}</style>
 
       <section
-        className="relative min-h-screen flex items-center justify-center
-                   text-center text-sm text-white bg-cover bg-center"
+        className="relative w-screen h-screen md:min-h-screen md:h-auto
+                   flex items-center justify-center text-center text-sm text-white
+                   bg-cover bg-center overflow-hidden"
         style={{ backgroundImage: `url(${image1})` }}
       >
         {/* HERO CONTENT */}
-        <div className="flex flex-col items-center -translate-y-10">
+        <div className="flex flex-col items-center md:-translate-y-10">
 
           {/* Trust badge */}
           <div className="flex flex-wrap items-center justify-center
-                          p-1.5 mt-24 md:mt-28
+                          p-1.5 mt-6 md:mt-28
                           rounded-full border border-slate-400 text-xs">
             <div className="flex items-center">
               <img

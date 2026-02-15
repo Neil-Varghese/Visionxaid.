@@ -35,7 +35,7 @@ export default function App() {
         </div>
 
         {/* Page Content */}
-        <main className="flex-1 px-4">
+        <main className="flex-1 px-0">
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/predict" element={<Prediction />} />
