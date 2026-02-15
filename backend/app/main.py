@@ -116,6 +116,12 @@ app = FastAPI(title="VisionXaid Backend", lifespan=lifespan)
 # Get allowed origins from environment variable or use default
 allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173").split(",")
 
+# Feature flags
+def env_flag(name: str, default: str = "true") -> bool:
+    return os.getenv(name, default).strip().lower() in {"1", "true", "yes", "on"}
+
+ENABLE_GRADCAM = env_flag("ENABLE_GRADCAM", "true")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
@@ -178,7 +184,8 @@ async def health_check():
         "message": "VisionXaid backend is running",
         "model_loaded": model_loaded,
         "model_path": app.state.model_path if hasattr(app.state, 'model_path') else None,
-        "last_conv_layer": app.state.last_conv_layer_name if hasattr(app.state, 'last_conv_layer_name') else None
+        "last_conv_layer": app.state.last_conv_layer_name if hasattr(app.state, 'last_conv_layer_name') else None,
+        "gradcam_enabled": ENABLE_GRADCAM
     }
 
 @app.post("/predict")
@@ -219,7 +226,7 @@ async def predict(file: UploadFile = File(...)):
         
         # 3. Generate Grad-CAM overlay if we have the components
         heatmap_b64 = None
-        if (app.state.base_model is not None and 
+        if (ENABLE_GRADCAM and app.state.base_model is not None and 
             app.state.last_conv_layer_name is not None):
             
             print("[INFO] Generating Grad-CAM overlay...")
@@ -234,7 +241,7 @@ async def predict(file: UploadFile = File(...)):
             heatmap_b64 = image_to_base64(heatmap_img)
             print("[INFO] Heatmap generated successfully")
         else:
-            print("[WARNING] Skipping Grad-CAM - missing model components")
+            print("[WARNING] Skipping Grad-CAM - disabled or missing model components")
         
         return JSONResponse({
             "success": True,

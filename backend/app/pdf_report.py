@@ -155,6 +155,9 @@ def generate_pdf_report(original_image_bytes, heatmap_img, filename, prediction,
     # Helper to process and draw images safely
     def place_img(data, x, y, is_b64=False):
         try:
+            if data is None:
+                c.drawString(x + 10, y + 50, "Image not available")
+                return
             if is_b64:
                 if data.startswith('data:image'): data = data.split(',')[1]
                 data = base64.b64decode(data)
